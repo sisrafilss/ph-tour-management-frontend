@@ -7,6 +7,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import config from "@/config";
 import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,15 +47,19 @@ const LoginForm = ({
 
       if (result) {
         toast.success("Successfully logged in");
+        navigate("/");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.status === 401) {
+      // This kind of error handling using error message is not recommended (It is temporary solution)
+      if (err.data.message === "User is not verified!") {
         toast.error("Your account is not verified");
         navigate("/verify", { state: values.email });
       }
+      if (err.data.message) {
+        toast.error(err.data.message);
+      }
       console.error(err);
-      console.log("Status:", err.status);
     }
   };
 
@@ -118,6 +123,7 @@ const LoginForm = ({
           type="button"
           variant="outline"
           className="w-full cursor-pointer"
+          onClick={() => window.open(`${config.baseUrl}/auth/google`)}
         >
           Login with Google
         </Button>
