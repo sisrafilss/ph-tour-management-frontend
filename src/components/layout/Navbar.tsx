@@ -119,7 +119,7 @@ export default function Navbar() {
                 {navigationLinks.map((link, index) => (
                   <>
                     {link.role === "PUBLIC" && (
-                      <NavigationMenuItem key={index}>
+                      <NavigationMenuItem key={index.toString() + link.href}>
                         <NavigationMenuLink
                           className="text-muted-foreground hover:text-primary py-1.5 font-medium"
                           asChild
@@ -130,7 +130,7 @@ export default function Navbar() {
                     )}
 
                     {link.role === data?.data?.role && (
-                      <NavigationMenuItem key={index}>
+                      <NavigationMenuItem key={`abc-${index}`}>
                         <NavigationMenuLink
                           className="text-muted-foreground hover:text-primary py-1.5 font-medium"
                           asChild
