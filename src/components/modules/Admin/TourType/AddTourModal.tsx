@@ -38,10 +38,8 @@ const AddTourModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof tourTypeNameSchema>) => {
-    console.log(values);
     try {
       const result = await addTourType(values).unwrap();
-      console.log(result);
 
       if (result) {
         toast.success("Tour type added successfully");
