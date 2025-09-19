@@ -43,7 +43,6 @@ const LoginForm = ({
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     try {
       const result = await login(values).unwrap();
-      console.log(result);
 
       if (result) {
         toast.success("Successfully logged in");

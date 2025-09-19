@@ -63,11 +63,9 @@ const RegisterForm = ({
       password: values.password,
     };
 
-    console.log(userInfo);
-
     try {
       const result = await register(userInfo).unwrap();
-      console.log(result);
+      console.error(result);
       toast.success("User created successfully!");
       navigate("/verify");
     } catch (err) {

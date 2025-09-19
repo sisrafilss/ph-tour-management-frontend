@@ -86,8 +86,8 @@ const addTourSchema = z
 
 const AddTour = () => {
   const [images, setImages] = useState<(File | FileMetadata)[]>([]);
-  const { data: divisionData } = useGetDivisionsQuery(undefined);
-  const { data: tourTypesData } = useGetTourTypesQuery(undefined);
+  const { data: divisionData } = useGetDivisionsQuery({ limit: 1000 });
+  const { data: tourTypesData } = useGetTourTypesQuery({ limit: 1000 });
   const [addTour] = useAddTourMutation();
 
   const form = useForm<z.infer<typeof addTourSchema>>({
@@ -205,7 +205,7 @@ const AddTour = () => {
 
     try {
       const res = await addTour(formData).unwrap();
-      console.log(res);
+
       if (res.success) {
         toast.success("Tour created successfully!", { id: toastId });
       }
@@ -357,7 +357,7 @@ const AddTour = () => {
                         </FormControl>
                         <SelectContent>
                           <SelectContent>
-                            {tourTypesData?.map(
+                            {tourTypesData?.data?.map(
                               (item: { _id: string; name: string }) => (
                                 <SelectItem key={item._id} value={item._id}>
                                   {item.name}

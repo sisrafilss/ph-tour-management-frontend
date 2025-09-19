@@ -25,6 +25,7 @@ import { ModeToggle } from "./ModeToggler";
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/tours", label: "Tours", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/admin", label: "Dashboard", role: role.superAdmin },
   { href: "/user", label: "Dashboard", role: role.user },
@@ -39,9 +40,6 @@ export default function Navbar() {
     await logout(undefined);
     dispatch(authApi.util.resetApiState());
   };
-
-  console.log(data?.data?.email);
-  console.log(data?.data?.role);
 
   return (
     <header className="container mx-auto border-b px-4">
@@ -117,7 +115,7 @@ export default function Navbar() {
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <>
+                  <span key={index}>
                     {link.role === "PUBLIC" && (
                       <NavigationMenuItem key={index.toString() + link.href}>
                         <NavigationMenuLink
@@ -139,7 +137,7 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )}
-                  </>
+                  </span>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>

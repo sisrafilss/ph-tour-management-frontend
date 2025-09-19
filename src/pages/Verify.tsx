@@ -75,7 +75,7 @@ const Verify = () => {
         setTimer(60);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -90,8 +90,8 @@ const Verify = () => {
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log(err);
-      console.log("Toast id", toastId);
+      console.error(err);
+
       toast.error(err.data.message, { id: toastId });
     }
   };
